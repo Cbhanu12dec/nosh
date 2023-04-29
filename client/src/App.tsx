@@ -42,6 +42,12 @@ interface CartContextProp {
 }
 
 function App() {
+  useEffect(() => {
+    localStorage.setItem("userInfo", JSON.stringify({}));
+    localStorage.setItem("orders", JSON.stringify([]));
+    localStorage.setItem("isUserLoggedIn", "no");
+
+  }, []);
   return (
     // <React.StrictMode>
     <Router>

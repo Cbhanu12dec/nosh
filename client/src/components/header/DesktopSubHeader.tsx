@@ -1,11 +1,20 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
-import { Box, Link,  Stack, useColorModeValue, Text, Flex, Icon } from "@chakra-ui/react";
+import {
+  Box,
+  Link as Clink,
+  Stack,
+  useColorModeValue,
+  Text,
+  Flex,
+  Icon,
+} from "@chakra-ui/react";
 import { NavItem } from "../common/utils";
-
+import { Link } from "react-router-dom";
 const DesktopSubHeader = ({ label, href, subLabel }: NavItem) => {
-    return (
-      <Link
-        href={href}
+  return (
+    <Link to={href as string}>
+      <Clink
+        // href={href}
         role={"group"}
         display={"block"}
         p={2}
@@ -37,8 +46,9 @@ const DesktopSubHeader = ({ label, href, subLabel }: NavItem) => {
             <Icon color={"orange.400"} w={5} h={5} as={ChevronRightIcon} />
           </Flex>
         </Stack>
-      </Link>
-    );
-  };
+      </Clink>
+    </Link>
+  );
+};
 
-  export default DesktopSubHeader;
+export default DesktopSubHeader;
