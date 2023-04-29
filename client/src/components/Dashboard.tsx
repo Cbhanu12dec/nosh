@@ -146,7 +146,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/admin/v1/get-items")
+      .get("http://34.235.166.147:5000/api/admin/v1/get-items")
       .then((response) => {
         setData(prepareData(response.data.items));
         prepareCart(prepareData(response.data.items));

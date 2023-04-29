@@ -97,7 +97,7 @@ const EmployeeDashboard = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:5000/api/admin/v1/get-orders")
+      .get("http://34.235.166.147:5000/api/admin/v1/get-orders")
       .then((response) => {
         const item = response.data?.items?.filter(
           (item: any) => item.orderStatus === segmentValue
@@ -131,7 +131,7 @@ const EmployeeDashboard = () => {
     const payload = { ...selectedOrder, orderStatus: status };
     setIsLoading(true);
     axios
-      .put("http://localhost:5000/api/admin/v1/update-order-status", payload)
+      .put("http://34.235.166.147:5000/api/admin/v1/update-order-status", payload)
       .then((response) => {
         const item = response.data?.items?.filter(
           (item: any) => item.orderStatus === segmentValue
@@ -152,7 +152,7 @@ const EmployeeDashboard = () => {
     const payload = { ...selectedOrder, orderStatus: status };
     setIsLoading(true);
     axios
-      .put("http://localhost:5000/api/admin/v1/update-order-status", payload)
+      .put("http://34.235.166.147:5000/api/admin/v1/update-order-status", payload)
       .then((response) => {
         const item = response.data?.items?.filter(
           (item: any) => item.orderStatus === segmentValue

@@ -48,7 +48,7 @@ const Profile = () => {
 
   const getInfo = () => {
     axios
-      .get("http://localhost:5000/api/admin/v1/getuserdetailsbyId", {
+      .get("http://34.235.166.147:5000/api/admin/v1/getuserdetailsbyId", {
         params: {
           id: profile.email,
         },
@@ -67,7 +67,7 @@ const Profile = () => {
     const payload = { ...usersData, ...formData };
 
     axios
-      .put("http://localhost:5000/api/admin/v1/update-employee", payload)
+      .put("http://34.235.166.147:5000/api/admin/v1/update-employee", payload)
       .then((response) => {
         console.log("successfully updated user information..!");
         setShowNotification({

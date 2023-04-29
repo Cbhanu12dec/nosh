@@ -47,7 +47,7 @@ const LoginPage = () => {
 
   const getOrderDetails = async (email: string) => {
     await axios
-      .get("http://localhost:5000/api/customer/v1/get-purchase-history", {
+      .get("http://34.235.166.147:5000/api/customer/v1/get-purchase-history", {
         params: {
           id: email,
         },
@@ -58,7 +58,7 @@ const LoginPage = () => {
           JSON.stringify(response.data.orders[0].orderDetails)
         );
         axios
-          .get("http://localhost:5000/api/admin/v1/get-user-details", {
+          .get("http://34.235.166.147:5000/api/admin/v1/get-user-details", {
             params: {
               id: email,
             },
@@ -137,7 +137,7 @@ const LoginPage = () => {
     localStorage.setItem("orders", JSON.stringify([]));
     localStorage.setItem("isUserLoggedIn", "no");
     axios
-      .get("http://localhost:5000/api/admin/v1/get-items")
+      .get("http://34.235.166.147:5000/api/admin/v1/get-items")
       .then((response) => {
         setOrders(response.data.items);
       })
@@ -168,7 +168,7 @@ const LoginPage = () => {
           //   showAlert: true,
           // });
           axios
-            .get("http://localhost:5000/api/admin/v1/get-user-details", {
+            .get("http://34.235.166.147:5000/api/admin/v1/get-user-details", {
               params: {
                 id: email,
               },

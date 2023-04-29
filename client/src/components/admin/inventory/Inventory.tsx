@@ -147,7 +147,7 @@ const Inventory = () => {
   const onDeleteClicked = (data: any) => {
     console.log(" data for deleteinh", data);
     axios
-      .delete("http://localhost:5000/api/admin/v1/delete-item", {
+      .delete("http://34.235.166.147:5000/api/admin/v1/delete-item", {
         params: {
           id: data.id,
         },
@@ -277,7 +277,7 @@ const Inventory = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:5000/api/admin/v1/get-items")
+      .get("http://34.235.166.147:5000/api/admin/v1/get-items")
       .then((response) => {
         setInventoryData(prepareData(response.data.items));
         setIsLoading(false);

@@ -89,7 +89,7 @@ const PurchaseHistory = () => {
       localStorage?.getItem("userInfo") || ("{}" as string)
     );
     axios
-      .get("http://localhost:5000/api/customer/v1/get-purchase-history", {
+      .get("http://34.235.166.147:5000/api/customer/v1/get-purchase-history", {
         params: {
           id: userID?.email,
         },

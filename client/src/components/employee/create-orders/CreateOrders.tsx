@@ -76,7 +76,7 @@ const CreateOrders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/admin/v1/get-items")
+      .get("http://34.235.166.147:5000/api/admin/v1/get-items")
       .then((response) => {
         setOrders(prepareData(response.data.items));
         setItemsData(prepareData(response.data.items))
