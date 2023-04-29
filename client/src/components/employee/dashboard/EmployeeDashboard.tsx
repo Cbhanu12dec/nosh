@@ -354,7 +354,7 @@ const EmployeeDashboard = () => {
                           onClick={onStatusUpdateClicked}
                         >
                           {segmentValue === "processing"
-                            ? "Accept Order"
+                            ? "Preparing Order"
                             : segmentValue === "preparing"
                             ? "Ready Order"
                             : "ready"}

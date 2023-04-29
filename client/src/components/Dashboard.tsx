@@ -90,11 +90,7 @@ const Dashboard = () => {
     {
       label: "Recommended Items",
       count: 18,
-    },
-    {
-      label: "Recent Orders",
-      count: 13,
-    },
+    }
   ];
 
   const handleCart = (data: any, operation: string, categ: string) => {
@@ -203,10 +199,8 @@ const Dashboard = () => {
       setPresentation((dashboardCart as any)?.favorite);
     } else if (selectedCat === 2) {
       setPresentation((dashboardCart as any)?.ready);
-    } else if (selectedCat === 3) {
-      setPresentation((dashboardCart as any)?.trending);
     } else {
-      setPresentation((dashboardCart as any)?.recent);
+      setPresentation((dashboardCart as any)?.trending);
     }
   }, [dashboardCart, selectedCat]);
 
@@ -381,7 +375,7 @@ const Dashboard = () => {
               </Text>
             </Flex>
             <Flex direction="column" mt="4">
-              {[1, 2, 3, 4, 5]?.map((item, index) => {
+              {[1, 2, 3, 4]?.map((item, index) => {
                 return getCategoriesItem(index);
               })}
             </Flex>

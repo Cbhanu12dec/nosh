@@ -17,7 +17,11 @@ const Tracking = () => {
 
   const getCurrentStep = (status: string) => {
     const num = statuses.indexOf(status);
-    return num + 1;
+    if(num===-1){
+      return -1
+    }else{
+      return num+1;
+    }
   };
 
   const statusProps = [
@@ -78,12 +82,14 @@ const Tracking = () => {
       .then((response) => {
         setTrackOrder(response.data.orders);
         const status = response.data?.orders?.orderStatus;
+        console.log("************* status details", status)
         setStepDetails(getCurrentStep(status));
       })
       .catch((error) => {
         console.log("************** error", error);
       });
   };
+  console.log("******* canlled", stepDetails)
 
   useEffect(() => {
     const intervalCall = setInterval(() => {
