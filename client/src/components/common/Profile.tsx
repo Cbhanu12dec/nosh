@@ -15,11 +15,14 @@ import { useForm } from "react-hook-form";
 import { EmployeeRequestPayload, NotificationStatus } from "./utils";
 import axios from "axios";
 import { useNotification } from "../../contexts/Notification";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const profile = JSON.parse(
     localStorage?.getItem("userInfo") || ("{}" as string)
   );
+
+  const navigate = useNavigate();
 
   const [usersData, setUserData] = useState<Partial<EmployeeRequestPayload>>();
   const {
@@ -75,6 +78,14 @@ const Profile = () => {
           alertMessage: "successfully updated user information..",
           showAlert: true,
         });
+        const user = JSON.parse(localStorage.getItem("userInfo")||"");
+        if(user.type==="admin"){
+          navigate("/employee")
+        }else if(user.type ==="employee"){
+          navigate("/employee-orders")
+        }else{
+            navigate("/dashboard")
+        }
       })
       .catch((error) => {
         console.log("failed to create");

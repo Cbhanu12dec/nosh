@@ -82,7 +82,6 @@ const Tracking = () => {
       .then((response) => {
         setTrackOrder(response.data.orders);
         const status = response.data?.orders?.orderStatus;
-        console.log("************* status details", status)
         setStepDetails(getCurrentStep(status));
       })
       .catch((error) => {
