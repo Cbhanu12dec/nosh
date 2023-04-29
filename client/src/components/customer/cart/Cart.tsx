@@ -75,7 +75,7 @@ const Cart = () => {
               <Text mt="4" fontWeight={"semibold"}>
                 Your Dashboard
               </Text>
-              <Flex
+              {/* <Flex
                 bg="linear-gradient(-60deg, #ff5858 0%, #f09819 100%)"
                 px="6"
                 py="6"
@@ -91,8 +91,8 @@ const Cart = () => {
                 <Text fontSize={"4xl"} fontWeight="semibold" textColor="white">
                   $200
                 </Text>
-              </Flex>
-              <Divider mb="4" />
+              </Flex> */}
+              {/* <Divider mb="4" /> */}
               {cartInfo.map((item: any, index: number) => {
                 return (
                   <CartItem
