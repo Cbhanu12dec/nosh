@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -79,7 +79,7 @@ const Payments = () => {
     formState: { errors },
   } = useForm();
   useEffect(() => {
-    const userinfo = JSON.parse(localStorage.getItem("userInfo") || "")
+    const userinfo = JSON.parse(localStorage.getItem("userInfo") || "");
     const user = {
       firstName: userinfo?.firstName,
       lastName: userinfo?.lastName,
@@ -99,6 +99,36 @@ const Payments = () => {
 
   const navigate = useNavigate();
 
+  const handleCart = (data: any, operation: string) => {
+    const updatedData = cartItems?.map((item: any) => {
+      if (operation === "add") {
+        if (item.productName === data.productName) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+          };
+        } else {
+          return item;
+        }
+      } else {
+        if (item.productName === data.productName) {
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+          };
+        } else {
+          return item;
+        }
+      }
+    });
+    const amount = updatedData?.reduce((acc, curr) => {
+      return acc + curr.quantity * curr.price;
+    }, 0);
+
+    setCartItems(updatedData as any);
+    setFinalAmount(amount);
+  };
+
   const prepareData = () => {
     const orders = JSON.parse(localStorage.getItem("orders") as any);
     const payload = {
@@ -112,13 +142,20 @@ const Payments = () => {
     axios
       .post("http://localhost:5000/api/customer/v1/place-order", payload)
       .then((response) => {
-        console.log("********** response of order", response.data.orders);
         setShowNotification({
           status: NotificationStatus.SUCCESS,
           alertMessage: "Orders Placed successfully..!",
           showAlert: true,
         });
-        navigate("/dashboard");
+        localStorage.setItem("orderID", payload.orderId);
+        localStorage.setItem("orders", JSON.stringify([]));
+        navigate("/tracking");
+        const userinfo = JSON.parse(localStorage.getItem("userInfo") || "");
+        // if (userinfo?.type === "employee") {
+        //   navigate("/employee-orders");
+        // } else {
+        //   navigate("/dashboard");
+        // }
       })
       .catch((error) => {
         console.log("************** error", error);
@@ -163,9 +200,19 @@ const Payments = () => {
                 <Flex alignItems="center">
                   <BsPersonCircle style={{ fontSize: "30px" }} />
                   <VStack justifyContent="start" alignItems="start" ml="4">
-                    <Text fontWeight="semibold">LOGIN</Text>
+                    <Text fontWeight="semibold">PERSONAL DETAILS</Text>
                     <Text fontSize="sm">
-                      {`${orderInfo?.lastName}  ${orderInfo?.firstName}, ${orderInfo?.email}`}
+                      {`${
+                        orderInfo?.lastName === undefined
+                          ? ""
+                          : orderInfo?.lastName
+                      }  ${
+                        orderInfo?.firstName === undefined
+                          ? ""
+                          : orderInfo?.firstName
+                      }, ${
+                        orderInfo?.email === undefined ? "" : orderInfo?.email
+                      }`}
                     </Text>
                   </VStack>
                 </Flex>
@@ -187,7 +234,25 @@ const Payments = () => {
                     <Text fontWeight="semibold">ADDRESS</Text>
                     <Box>
                       <Text fontSize="sm">
-                        {`${orderInfo?.address?.addressLine1} ${orderInfo?.address?.addressLine2}, ${orderInfo?.address?.city}, ${orderInfo?.address?.state}, 12208`}
+                        {`${
+                          orderInfo?.address?.addressLine1 === undefined
+                            ? ""
+                            : orderInfo?.address?.addressLine1
+                        } ${
+                          orderInfo?.address?.addressLine2 === undefined
+                            ? ""
+                            : orderInfo?.address?.addressLine2
+                        }, ${
+                          orderInfo?.address?.city === undefined
+                            ? ""
+                            : orderInfo?.address?.city
+                        }, ${
+                          orderInfo?.address?.state === undefined
+                            ? ""
+                            : orderInfo?.address?.state
+                        }, ${
+                          orderInfo?.address?.state === undefined ? "" : "12208"
+                        }`}
                       </Text>
                       <Text fontSize="sm">United States</Text>
                     </Box>
@@ -245,6 +310,7 @@ const Payments = () => {
                     colorScheme={"orange"}
                     mt="3"
                     // type="submit"
+                    isDisabled={getCardDetails === ""}
                     onClick={prepareData}
                     w="56"
                     float="right"
@@ -489,18 +555,51 @@ const Payments = () => {
                             mt="3"
                             w="100%"
                           >
-                            <Flex>
-                              <Image
-                                src={data.url}
-                                width={"50px"}
-                                height={"50px"}
-                                borderRadius={"lg"}
-                              />
-                              <Flex direction={"column"} ml="6">
-                                <Text fontSize={"md"} fontWeight={"semibold"}>
-                                  {_.capitalize(data.productName)}
+                            <Flex
+                              alignItems="center"
+                              justifyContent="space-between"
+                            >
+                              <Flex>
+                                <Image
+                                  src={data.url}
+                                  width={"50px"}
+                                  height={"50px"}
+                                  borderRadius={"lg"}
+                                />
+                                <Flex direction={"column"} ml="6">
+                                  <Text fontSize={"md"} fontWeight={"semibold"}>
+                                    {_.capitalize(data?.productName)}
+                                  </Text>
+                                  <Text>Quantity: {data?.quantity}</Text>
+                                </Flex>
+                              </Flex>
+
+                              <Flex alignItems="center">
+                                <Text fontWeight="semibold" fontSize="md">
+                                  Price: $
+                                  {(data?.price * data.quantity).toFixed(2)}
                                 </Text>
-                                <Text>Quantity: {data.quantity}</Text>
+                                <HStack ml="6">
+                                  <Button
+                                    colorScheme="orange"
+                                    rounded={"full"}
+                                    size={"sm"}
+                                    onClick={() => handleCart(data, "minus")}
+                                  >
+                                    -
+                                  </Button>
+                                  <Text fontSize={"md"} fontWeight={"semibold"}>
+                                    {data.quantity}
+                                  </Text>
+                                  <Button
+                                    colorScheme="orange"
+                                    rounded={"full"}
+                                    size={"sm"}
+                                    onClick={() => handleCart(data, "add")}
+                                  >
+                                    +
+                                  </Button>
+                                </HStack>
                               </Flex>
                             </Flex>
                           </Flex>
@@ -544,7 +643,7 @@ const Payments = () => {
                   Sub Total
                 </Text>
                 <Text fontSize={"lg"} fontWeight="semibold">
-                  ${finalAmount ? (finalAmount).toFixed(2) : 0}
+                  ${finalAmount ? finalAmount.toFixed(2) : 0}
                 </Text>
               </Flex>
               <Flex width={"100%"} justifyContent="space-between" my="2">
@@ -596,7 +695,7 @@ const Payments = () => {
               gap={4}
             >
               <GridItem rowSpan={1} colSpan={1}>
-                <FormControl >
+                <FormControl>
                   <FormLabel
                     id="firstName"
                     fontSize={"xs"}
@@ -624,7 +723,7 @@ const Payments = () => {
                 </FormControl>
               </GridItem>
               <GridItem rowSpan={1} colSpan={1}>
-                <FormControl >
+                <FormControl>
                   <FormLabel
                     fontSize={"xs"}
                     textColor="gray.600"
@@ -676,7 +775,7 @@ const Payments = () => {
                 </FormControl>
               </GridItem>
               <GridItem rowSpan={1} colSpan={2}>
-                <FormControl >
+                <FormControl>
                   <FormLabel
                     fontSize={"xs"}
                     textColor="gray.600"
@@ -729,7 +828,7 @@ const Payments = () => {
                 </FormControl>
               </GridItem>
               <GridItem rowSpan={1} colSpan={1}>
-                <FormControl >
+                <FormControl>
                   <FormLabel
                     fontSize={"xs"}
                     textColor="gray.600"
@@ -758,7 +857,7 @@ const Payments = () => {
                 </FormControl>
               </GridItem>
               <GridItem rowSpan={1} colSpan={1}>
-                <FormControl >
+                <FormControl>
                   <FormLabel
                     fontSize={"xs"}
                     textColor="gray.600"

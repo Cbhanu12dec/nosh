@@ -6,6 +6,7 @@ import {
   PopoverTrigger,
   Stack,
   useColorModeValue,
+  Text
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useUser } from "../../contexts/UserContext";
@@ -14,6 +15,7 @@ import {
   CLIENT_NAV_ITEMS,
   EMPLOYEE_NAV,
   NAV_ITEMS,
+  TOUR_NAV_ITEMS,
 } from "../common/utils";
 import DesktopSubHeader from "./DesktopSubHeader";
 
@@ -45,7 +47,7 @@ const DesktopHeader = () => {
         ? ADMIN_NAV_ITEMS
         : JSON.parse(localStorage.getItem("userInfo") as string).type === "employee"
         ? EMPLOYEE_NAV
-        : []).map((navItem) => (
+        : TOUR_NAV_ITEMS).map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
@@ -60,7 +62,7 @@ const DesktopHeader = () => {
                   color: linkHoverColor,
                 }}
               >
-                {navItem.label}
+                <Text fontWeight="semibold" fontSize="md" mr="6">{navItem.label}</Text>
               </Link>
             </PopoverTrigger>
 

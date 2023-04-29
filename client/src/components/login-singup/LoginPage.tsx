@@ -45,30 +45,68 @@ const LoginPage = () => {
   const [conversationHistory, setConversationHistory] = useState([]);
   const [orders, setOrders] = useState([]);
 
+  const getOrderDetails = async (email: string) => {
+    await axios
+      .get("http://localhost:5000/api/customer/v1/get-purchase-history", {
+        params: {
+          id: email,
+        },
+      })
+      .then((response) => {
+        localStorage.setItem(
+          "orders",
+          JSON.stringify(response.data.orders[0].orderDetails)
+        );
+        axios
+          .get("http://localhost:5000/api/admin/v1/get-user-details", {
+            params: {
+              id: email,
+            },
+          })
+          .then((response) => {
+            localStorage.setItem(
+              "userInfo",
+              JSON.stringify(response.data.userInfo[0])
+            );
+
+            navigate("/payment");
+          });
+      })
+      .catch((error) => {
+        console.log("Error while retreiveing items: ", error);
+      });
+  };
+
   const formatterChat = (data: any) => {
     const userChat = data?.filter((item: any) => item.type === "user");
     const chartinformation = (userChat[0] as any)?.data?.filter(
       (item: string) => item !== "Yes" && item !== "Appetizers"
     );
 
-    console.log("*********** data for histuiruy:", data)
-    const cart: any = [];
-    for (let i = 1; i < chartinformation.length; i++) {
-      orders
-        ?.filter((item: any) => item.productName === chartinformation[1])
-        .map((food: any) => {
-          cart.push({
-            category: food.category,
-            id: food.id,
-            price: food.price,
-            productName: food.productName,
-            quantity: 1,
-            url: food.url,
+    const isExisistingUser = userChat[0]?.data[0] === "No";
+    const email = userChat[0]?.data[1];
+    const previousOrder = userChat[0]?.data[2] === "Yes";
+    if (isExisistingUser && previousOrder) {
+      getOrderDetails(email);
+    } else {
+      const cart: any = [];
+      for (let i = 1; i < chartinformation.length; i++) {
+        orders
+          ?.filter((item: any) => item.productName === chartinformation[i])
+          .map((food: any) => {
+            cart.push({
+              category: food.category,
+              id: food.id,
+              price: food.price,
+              productName: food.productName,
+              quantity: 1,
+              url: food.url,
+            });
           });
-        });
+      }
+      localStorage.setItem("orders", JSON.stringify(cart));
+      navigate("/payment");
     }
-    localStorage.setItem("orders", JSON.stringify(cart));
-    navigate("/payment")
   };
 
   const handleEnd = ({ steps, values }: any) => {
@@ -95,6 +133,9 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem("userInfo", JSON.stringify({}));
+    localStorage.setItem("orders", JSON.stringify([]));
+    localStorage.setItem("isUserLoggedIn", "no");
     axios
       .get("http://localhost:5000/api/admin/v1/get-items")
       .then((response) => {
@@ -134,15 +175,21 @@ const LoginPage = () => {
             })
             .then((response) => {
               localStorage.setItem("isUserLoggedIn", "yes");
-              console.log(
-                "**************** user info:",
-                response.data.userInfo[0]
-              );
+              localStorage.setItem("orders", JSON.stringify([]));
               localStorage.setItem(
                 "userInfo",
                 JSON.stringify(response.data.userInfo[0])
               );
-              navigate("/dashboard");
+              if (
+                response.data.userInfo[0]?.type === "customer" ||
+                response.data.userInfo[0] === "employee"
+              ) {
+                navigate("/dashboard");
+              } else if (response.data.userInfo[0]?.type === "admin") {
+                navigate("/employee");
+              } else {
+                navigate("/employee-orders");
+              }
             })
             .catch((error) => {
               setShowNotification({
@@ -169,6 +216,8 @@ const LoginPage = () => {
       });
     }
   };
+
+  console.log("************** history:", conversationHistory);
 
   return (
     <div className="login-page">

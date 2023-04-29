@@ -63,7 +63,6 @@ const Dashboard = () => {
           });
       });
       localStorage.setItem("orders", JSON.stringify(items))
-      console.log("************ final cart data:", items);
       //   category: food.category,
       //         id: food.id,
       //         price: food.price,
@@ -89,7 +88,7 @@ const Dashboard = () => {
       count: 22,
     },
     {
-      label: "Trending Menu",
+      label: "Recommended Items",
       count: 18,
     },
     {
@@ -422,7 +421,7 @@ const Dashboard = () => {
             direction="column"
           >
             <Text textColor="black" fontWeight="semibold" fontSize="2xl">
-              Trending Menu
+              Recommended Items
             </Text>
 
             <Flex direction="column" mt="4">
@@ -432,9 +431,9 @@ const Dashboard = () => {
                   return getTrendingItem(item);
                 })}
             </Flex>
-            <Text mt="2" textColor="orange.500" fontWeight="semibold" ml="24">
+            {/* <Text mt="2" textColor="orange.500" fontWeight="semibold" ml="24">
               View More +
-            </Text>
+            </Text> */}
           </Flex>
         </HStack>
       </Flex>

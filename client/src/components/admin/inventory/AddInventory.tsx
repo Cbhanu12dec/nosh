@@ -89,13 +89,12 @@ const AddInventory = (props: AddInventoryProps) => {
         tax: 0,
         url: productURI,
       };
-      console.log("payload of inventory", preparedPayload);
       axios
         .post("http://localhost:5000/api/admin/v1/add-item", preparedPayload)
         .then((response) => {
           setShowNotification({
             status: NotificationStatus.SUCCESS,
-            alertMessage: "Successfully Item added to invetory..!",
+            alertMessage: "Successfully Item added to inventory..!",
             showAlert: true,
           });
           navigate("/inventory");
@@ -103,7 +102,7 @@ const AddInventory = (props: AddInventoryProps) => {
         .catch((error) => {
           setShowNotification({
             status: NotificationStatus.SUCCESS,
-            alertMessage: "Failed to added Item to invetory..!",
+            alertMessage: "Failed to added Item to inventory..!",
             showAlert: true,
           });
         });

@@ -13,7 +13,7 @@ import {
   Tabs,
   Text,
   VStack,
-  Textarea
+  Textarea,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Orders_Catergory, cartData } from "../../common/utils";
@@ -26,13 +26,13 @@ const CreateOrders = () => {
   const [ecart, setECart] = useState(cartData);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [orders, setOrders] = useState([]);
+  const [itemsData, setItemsData] = useState([]);
   const [amount, setAmount] = useState({
     total: 0,
     tax: 0,
   });
 
   const navigate = useNavigate();
-
 
   const handleCart = (data: any, operation: string) => {
     const updatedData = orders?.map((item: any) => {
@@ -74,12 +74,12 @@ const CreateOrders = () => {
     return data1;
   };
 
-
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/admin/v1/get-items")
       .then((response) => {
         setOrders(prepareData(response.data.items));
+        setItemsData(prepareData(response.data.items))
       })
       .catch((error) => {
         console.log("Error while retreiveing items: ", error);
@@ -168,7 +168,7 @@ const CreateOrders = () => {
       });
 
     localStorage.setItem("orders", JSON.stringify(payload));
-    navigate("/payment")
+    navigate("/payment");
   };
 
   return (
@@ -200,14 +200,14 @@ const CreateOrders = () => {
             mb="4"
             onChange={(index) => {
               setSelectedCategory(Orders_Catergory[index]);
-              // const redata = itemsData.filter(
-              //   (item: any) => item.category === Orders_Catergory[index]
-              // );
-              // setData(
-              //   Orders_Catergory[index] === "all"
-              //     ? itemsData.slice(0, 8)
-              //     : redata.slice(0, 8)
-              // );
+              const redata = itemsData.filter(
+                (item: any) => item.category === Orders_Catergory[index]
+              );
+              setOrders(
+                Orders_Catergory[index] === "all"
+                  ? itemsData.slice(0, 8)
+                  : redata.slice(0, 8)
+              );
             }}
           >
             <TabList mb="4">
@@ -217,28 +217,26 @@ const CreateOrders = () => {
             </TabList>
 
             <TabPanels>
-              <TabPanel>
-                <Grid
-                  templateRows="repeat(3, 1fr)"
-                  templateColumns="repeat(4, 1fr)"
-                  gap={6}
-                  width={"100%"}
-                >
-                  {orders.slice(0, 8).map((item) => {
-                    return (
-                      <GridItem rowSpan={1} colSpan={1}>
-                        {orderItem(item)}
-                      </GridItem>
-                    );
-                  })}
-                </Grid>
-              </TabPanel>
-              <TabPanel>
-                <p>two!</p>
-              </TabPanel>
-              <TabPanel>
-                <p>three!</p>
-              </TabPanel>
+              {Orders_Catergory.map((item, index) => {
+                return (
+                  <TabPanel>
+                    <Grid
+                      templateRows="repeat(2, 1fr)"
+                      templateColumns="repeat(4, 1fr)"
+                      gap={6}
+                      width={"100%"}
+                    >
+                      {orders?.map((item) => {
+                        return (
+                          <GridItem rowSpan={1} colSpan={1}>
+                            {orderItem(item)}
+                          </GridItem>
+                        );
+                      })}
+                    </Grid>
+                  </TabPanel>
+                );
+              })}
             </TabPanels>
           </Tabs>
         </GridItem>
@@ -275,22 +273,36 @@ const CreateOrders = () => {
                         mt="3"
                         w="100%"
                       >
-                        <Flex>
-                          <Image
-                            src={data.url}
-                            width={"80px"}
-                            height={"80px"}
-                            borderRadius={"lg"}
-                          />
-                          <Flex direction={"column"} ml="6">
+                        <Flex
+                          justifyContent="space-between"
+                          alignItems="center"
+                        >
+                          <Flex>
+                            <Image
+                              src={data.url}
+                              width={"80px"}
+                              height={"80px"}
+                              borderRadius={"lg"}
+                            />
+                            <Flex direction={"column"} ml="6">
+                              <Text
+                                fontSize={"lg"}
+                                fontWeight={"semibold"}
+                                my="2"
+                              >
+                                {_.capitalize(data.productName)}
+                              </Text>
+                              <Text>Quantity: {data.quantity}</Text>
+                            </Flex>
+                          </Flex>
+                          <Flex>
                             <Text
-                              fontSize={"lg"}
-                              fontWeight={"semibold"}
-                              my="2"
+                              textColor="orange.500"
+                              fontWeight="semibold"
+                              fontSize="xl"
                             >
-                              {_.capitalize(data.productName)}
+                              ${(data.quantity * data.price).toFixed(2)}
                             </Text>
-                            <Text>Quantity: {data.quantity}</Text>
                           </Flex>
                         </Flex>
                       </Flex>
