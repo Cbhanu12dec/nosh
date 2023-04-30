@@ -45,6 +45,16 @@ const LoginPage = () => {
   const [conversationHistory, setConversationHistory] = useState([]);
   const [orders, setOrders] = useState([]);
 
+
+
+  /*****
+   *  code  
+   * 
+   * 
+   */
+
+
+
   const getOrderDetails = async (email: string) => {
     await axios
       .get("https://the-nosh-restaurant.herokuapp.com/api/customer/v1/get-purchase-history", {
