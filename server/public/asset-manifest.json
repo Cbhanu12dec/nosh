@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ef6651a6.css",
+    "main.js": "/static/js/main.cb63f433.js",
+    "static/js/444.4ddbee0a.chunk.js": "/static/js/444.4ddbee0a.chunk.js",
+    "static/media/banner.jpg": "/static/media/banner.66be754dbbc323fc3a37.jpg",
+    "static/media/purchase-history.jpg": "/static/media/purchase-history.8c70dcd8efbdf057971f.jpg",
+    "static/media/loginPage.jpg": "/static/media/loginPage.814bc6dc92ab20ea1fc6.jpg",
+    "static/media/orders.jpg": "/static/media/orders.2680d071b8f62ad1ddfa.jpg",
+    "static/media/app-logo.jpg": "/static/media/app-logo.1c284cbc16b6ed7f3c3a.jpg",
+    "static/media/chickenpakora.jpg": "/static/media/chickenpakora.c60c12714fc3702cd4f4.jpg",
+    "static/media/banner-2.jpg": "/static/media/banner-2.31587e3a3611abf73179.jpg",
+    "static/media/nosh.jpg": "/static/media/nosh.a33ab8a92f697249d1b6.jpg",
+    "static/media/ready.jpg": "/static/media/ready.268f25b07a1c7900e742.jpg",
+    "static/media/order-placed.jpg": "/static/media/order-placed.374cbea33d1b4d8aed3c.jpg",
+    "static/media/preparing.jpg": "/static/media/preparing.9588519911102d2e7d08.jpg",
+    "index.html": "/index.html",
+    "main.ef6651a6.css.map": "/static/css/main.ef6651a6.css.map",
+    "main.cb63f433.js.map": "/static/js/main.cb63f433.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ef6651a6.css",
+    "static/js/main.cb63f433.js"
+  ]
+}

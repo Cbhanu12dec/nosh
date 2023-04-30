@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[444],{5444:function(c,e,t){c.exports=t.p+"static/media/chickenpakora.c60c12714fc3702cd4f4.jpg"}}]);
