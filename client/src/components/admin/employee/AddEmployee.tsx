@@ -97,7 +97,7 @@ const AddEmployee = (props: AddEmployeeProps) => {
         },
       } as any;
       axios
-        .post("http://34.235.166.147:5000/api/admin/v1/add-employee", formattedData)
+        .post("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/add-employee", formattedData)
         .then((response) => {
           try {
             signUp(formattedData?.email, "Nosh@123")
@@ -138,7 +138,7 @@ const AddEmployee = (props: AddEmployeeProps) => {
       } as any;
       axios
         .put(
-          "http://34.235.166.147:5000/api/admin/v1/update-employee",
+          "https://the-nosh-restaurant.herokuapp.com/api/admin/v1/update-employee",
           formattedData
         )
         .then((response) => {

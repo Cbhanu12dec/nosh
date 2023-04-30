@@ -163,7 +163,7 @@ const Employee = () => {
   };
   const onDeleteClicked = (data: EmployeeDatatype) => {
     axios
-      .delete("http://34.235.166.147:5000/api/admin/v1/delete-employee/", {
+      .delete("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/delete-employee/", {
         params: {
           id: data.id.toLowerCase(),
         },
@@ -305,7 +305,7 @@ const Employee = () => {
 
   useEffect(() => {
     axios
-      .get("http://34.235.166.147:5000/api/admin/v1/get-employee-details")
+      .get("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/get-employee-details")
       .then((response: any) => {
         setunformattedEmployeeData(response.data.employees);
         setEmployeeData(prepareData(response.data.employees));

@@ -77,7 +77,7 @@ const CreateReward = (props: CreateRewardProps) => {
     if (!forUpdate) {
       const preparedPayload = { ...formData, id: "R" + generateUID() };
       axios
-        .post("http://34.235.166.147:5000/api/admin/v1/add-reward", preparedPayload)
+        .post("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/add-reward", preparedPayload)
         .then((response) => {
           setIsModalOpen(false);
           setShowNotification({
@@ -99,7 +99,7 @@ const CreateReward = (props: CreateRewardProps) => {
       const preparedPayload = { ...data, ...formData };
       axios
         .put(
-          "http://34.235.166.147:5000/api/admin/v1/update-reward",
+          "https://the-nosh-restaurant.herokuapp.com/api/admin/v1/update-reward",
           preparedPayload
         )
         .then((response) => {

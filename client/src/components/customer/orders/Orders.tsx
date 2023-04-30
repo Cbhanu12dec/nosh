@@ -38,7 +38,7 @@ const Orders = () => {
   useEffect(() => {
     setData(data.slice(0, 8));
     axios
-      .get("http://34.235.166.147:5000/api/admin/v1/get-items")
+      .get("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/get-items")
       .then((response) => {
         setData(response.data.items);
         setItemsData(response.data.items);

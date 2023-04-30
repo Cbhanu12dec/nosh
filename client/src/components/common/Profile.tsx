@@ -51,7 +51,7 @@ const Profile = () => {
 
   const getInfo = () => {
     axios
-      .get("http://34.235.166.147:5000/api/admin/v1/getuserdetailsbyId", {
+      .get("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/getuserdetailsbyId", {
         params: {
           id: profile.email,
         },
@@ -70,7 +70,7 @@ const Profile = () => {
     const payload = { ...usersData, ...formData };
 
     axios
-      .put("http://34.235.166.147:5000/api/admin/v1/update-employee", payload)
+      .put("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/update-employee", payload)
       .then((response) => {
         console.log("successfully updated user information..!");
         setShowNotification({

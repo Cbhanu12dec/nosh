@@ -101,7 +101,7 @@ const Test = () => {
 
   const getData = () => {
     axios
-      .get("http://34.235.166.147:5000/api/customer/v1/get-order-details-by-id", {
+      .get("https://the-nosh-restaurant.herokuapp.com/api/customer/v1/get-order-details-by-id", {
         params: {
           id: "o17651",
         },

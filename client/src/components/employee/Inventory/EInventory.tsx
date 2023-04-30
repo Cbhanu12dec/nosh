@@ -91,7 +91,7 @@ const EInventory = () => {
   // };
   const onDeleteClicked = (data: any) => {
     axios
-      .delete("http://34.235.166.147:5000/api/admin/v1/delete-item", {
+      .delete("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/delete-item", {
         params: {
           id: data.id,
         },
@@ -133,7 +133,7 @@ const EInventory = () => {
     setIsLoading(true);
     axios
       .put(
-        "http://34.235.166.147:5000/api/admin/v1/update-items-status",
+        "https://the-nosh-restaurant.herokuapp.com/api/admin/v1/update-items-status",
         itemNeedtoUpdate
       )
       .then((response) => {
@@ -243,7 +243,7 @@ const EInventory = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://34.235.166.147:5000/api/admin/v1/get-employee-items")
+      .get("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/get-employee-items")
       .then((response) => {
         setEInventoryData(response.data.items);
         // setTableData(prepareData(response.data.items));

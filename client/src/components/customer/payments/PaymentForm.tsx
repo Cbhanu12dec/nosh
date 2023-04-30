@@ -39,7 +39,7 @@ export default function PaymentForm(props: { setCardDetails: any }) {
     setCardDetails(id);
     // if (!error) {
     //   try {
-    //     const response = await axios.post("http://34.235.166.147:4000/payment", {
+    //     const response = await axios.post("http://https://the-nosh-restaurant.herokuapp.com/:4000/payment", {
     //       amount: props.finalAmount,
     //       id,
     //     });

@@ -90,7 +90,7 @@ const AddInventory = (props: AddInventoryProps) => {
         url: productURI,
       };
       axios
-        .post("http://34.235.166.147:5000/api/admin/v1/add-item", preparedPayload)
+        .post("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/add-item", preparedPayload)
         .then((response) => {
           setShowNotification({
             status: NotificationStatus.SUCCESS,
@@ -110,7 +110,7 @@ const AddInventory = (props: AddInventoryProps) => {
       const data = prepareData();
       const payload = { ...data, ...formData };
       axios
-        .put("http://34.235.166.147:5000/api/admin/v1/update-item", payload)
+        .put("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/update-item", payload)
         .then((response) => {
           setShowNotification({
             status: NotificationStatus.SUCCESS,

@@ -47,7 +47,7 @@ const SignUp = () => {
         signUp(email, pwd)
           .then(() => {
             axios
-              .post("http://34.235.166.147:5000/api/admin/v1/add-employee", {
+              .post("https://the-nosh-restaurant.herokuapp.com/api/admin/v1/add-employee", {
                 id: "C"+generateUID(),
                 email: email,
                 type: "customer"

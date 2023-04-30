@@ -140,7 +140,7 @@ const Payments = () => {
       orderStatus: "processing",
     };
     axios
-      .post("http://34.235.166.147:5000/api/customer/v1/place-order", payload)
+      .post("https://the-nosh-restaurant.herokuapp.com/api/customer/v1/place-order", payload)
       .then((response) => {
         setShowNotification({
           status: NotificationStatus.SUCCESS,
