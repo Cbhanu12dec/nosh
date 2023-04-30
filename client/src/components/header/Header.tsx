@@ -49,7 +49,7 @@ const Header = () => {
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userInfo") as string);
     setUserData(userData);
-    setUserType(userData.type);
+    setUserType(userData?.type);
   }, []);
 
   return (

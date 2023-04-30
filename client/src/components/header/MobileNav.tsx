@@ -24,9 +24,9 @@ const MobileHeader = () => {
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userInfo") as string);
     const customerTypeNav =
-      userData.type === "customer"
+      userData?.type === "customer"
         ? CLIENT_NAV_ITEMS
-        : userData.type === "admin"
+        : userData?.type === "admin"
         ? ADMIN_NAV_ITEMS
         : NAV_ITEMS;
     setNav(customerTypeNav);

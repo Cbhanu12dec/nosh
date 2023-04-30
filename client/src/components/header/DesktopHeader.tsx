@@ -31,9 +31,9 @@ const DesktopHeader = () => {
     const customerTypeNav =
       userData?.type === "customer"
         ? CLIENT_NAV_ITEMS
-        : userData.type === "admin"
+        : userData?.type === "admin"
         ? ADMIN_NAV_ITEMS
-        : userData.type === "employee"
+        : userData?.type === "employee"
         ? EMPLOYEE_NAV
         : NAV_ITEMS;
     setNav(customerTypeNav);
