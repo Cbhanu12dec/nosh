@@ -49,11 +49,14 @@ const LoginPage = () => {
 
   /*****
    *  code  
-   * 
+   *  login page
    * 
    */
 
 
+  /*
+  login page logics
+  */
 
   const getOrderDetails = async (email: string) => {
     await axios
