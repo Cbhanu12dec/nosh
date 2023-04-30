@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const fs = require("fs");
 const handlebars = require("handlebars");
 const accountCreateHtml = fs.readFileSync(
-  "./accountCreation.handlebars",
+  "accountCreation.handlebars",
   "utf-8"
 );
 const accountCreateTemplate = handlebars.compile(accountCreateHtml);
